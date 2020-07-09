@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  datawheel:
+    image: postgres:12.3
+    ports:
+      - 5433:5432
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: datawheel_db
