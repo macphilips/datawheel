@@ -4,8 +4,7 @@ services:
   datawheel:
     image: postgres:12.3
     ports:
-      - 5433:5432
-    restart: always
+      - 5432:5432
     environment:
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: datawheel_db
+      POSTGRES_PASSWORD: 0908gyvbkjw3456ydfgh9098
+      POSTGRES_DB: datawheel

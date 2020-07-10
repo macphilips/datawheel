@@ -1,13 +1,18 @@
 version: '2'
 services:
-    datawheel-app:
-        image: datawheel
-        environment:
-            - _JAVA_OPTIONS=-Xmx512m -Xms256m
-            - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:password@datawheel-postgres:5432/datawheel_db
-        ports:
-            - 8080:8080
-    datawheel-postgres:
-        extends:
-            file: postgres.yml
-            service: datawheel-postgres
+  datawheel-app:
+    image: datawheel
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/datawheel
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=0908gyvbkjw3456ydfgh9098
+    ports:
+      - 8080:8080
+    depends_on:
+      - database
+
+  database:
+    extends:
+      file: postgres.yml
+      service: datawheel
