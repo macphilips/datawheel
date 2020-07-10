@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CounterRepository extends JpaRepository<Counter, Long> {
+//    public List<Counter> getFirst();
 }
