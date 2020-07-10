@@ -1,0 +1,22 @@
+html body {
+  margin: 0;
+}
+
+* {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  &:after,
+  &::before {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+}
+
+.center {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 50px);
+
+  align-items: center;
+  justify-content: center;
+}
