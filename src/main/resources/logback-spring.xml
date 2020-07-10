@@ -8,6 +8,7 @@
     <logger name="sun.rmi" level="WARN"/>
     <logger name="org.apache" level="WARN"/>
     <logger name="org.apache.catalina.startup.DigesterFactory" level="OFF"/>
+    <logger name="org.postgresql" level="OFF"/>
     <logger name="com.zaxxer" level="WARN"/>
     <logger name="com.sun" level="WARN"/>
     <logger name="org.hibernate.validator" level="WARN"/>
