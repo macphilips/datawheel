@@ -45,7 +45,9 @@ class CounterCrtlTest {
     void getCountShouldThrow() throws Exception {
         restUserMockMvc.perform(get("/api/counter")
             .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isNotFound());
+            .andExpect(status().isNotFound())
+            .andExpect(jsonPath("$.detail").value("Counter not found"));
+
     }
 
     @Test
@@ -76,7 +78,8 @@ class CounterCrtlTest {
         restUserMockMvc.perform(post("/api/counter")
             .contentType(MediaType.APPLICATION_JSON)
             .content("{ \"totalCount\": 56,  \"id\": 8 }"))
-            .andExpect(status().isBadRequest());
+            .andExpect(status().isBadRequest())
+            .andExpect(jsonPath("$.detail").value("Use PUT request to update entity"));
     }
 
     @Test
@@ -103,7 +106,9 @@ class CounterCrtlTest {
         restUserMockMvc.perform(put("/api/counter")
             .contentType(MediaType.APPLICATION_JSON)
             .content("{ \"totalCount\": 6 }"))
-            .andExpect(status().isBadRequest());
+            .andExpect(status().isBadRequest())
+            .andExpect(jsonPath("$.detail").value("Use POST request to create entity"));
+
 
         assertThat(counterRepository.getOne(counter.getId()).getCount()).isEqualTo(counter.getCount());
 
