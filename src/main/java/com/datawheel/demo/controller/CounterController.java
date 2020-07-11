@@ -38,5 +38,4 @@ public class CounterController {
             .map(CounterDTO::new)
             .orElseThrow(() -> new NotFoundException("Counter not found"));
     }
-
 }

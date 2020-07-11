@@ -111,7 +111,5 @@ class CounterCrtlTest {
 
 
         assertThat(counterRepository.getOne(counter.getId()).getCount()).isEqualTo(counter.getCount());
-
     }
-
 }
