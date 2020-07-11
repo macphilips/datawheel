@@ -2,9 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import AppRoutes from 'app/Routes';
 import { Header } from 'app/compontents/Header';
-import apiClient from 'app/services/ApiClient';
-import { ApiContext } from 'app/hooks/useApi';
-import StoreProvider from 'app/hooks/useStore';
+import APIProvider from 'app/contexts/APIContext';
+import StoreProvider from 'app/contexts/Store';
 
 import './App.scss';
 
@@ -20,11 +19,11 @@ export const App = () => {
       <div className="app-container">
         <Header/>
         <StoreProvider>
-          <ApiContext.Provider value={apiClient}>
+          <APIProvider>
             <div className="container-fluid view-container" id="app-view-container">
               <AppRoutes/>
             </div>
-          </ApiContext.Provider>
+          </APIProvider>
         </StoreProvider>
       </div>
     </Router>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useStore } from 'app/hooks/useStore';
+import { useStore } from 'app/hooks/customHooks';
 
 
 export function Report() {

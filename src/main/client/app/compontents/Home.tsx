@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import useDidMount from '@rooks/use-did-mount';
-import { useApi } from 'app/hooks/useApi';
-import { Loader } from 'app/compontents/Loader';
 import { useDebounce } from 'app/hooks/useDebounce';
+import { useApi, useStore } from 'app/hooks/customHooks';
+import { Loader } from 'app/compontents/Loader';
 
 import './Home.scss';
-import { useStore } from 'app/hooks/useStore';
 
 export function Home() {
   const { updateCounter, totalCounter } = useStore();

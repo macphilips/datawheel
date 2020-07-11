@@ -1,20 +1,12 @@
 import axios from 'axios';
 import { SERVER_API_URL, TIMEOUT } from 'app/config/constants';
+import { GetCounterResponse, IApiClient } from 'app/interfaces/IApiClient';
 
 const axiosInstance = axios.create({
   baseURL: SERVER_API_URL,
   timeout: TIMEOUT
   // headers: {'X-Custom-Header': 'foobar'}
 });
-
-export interface IApiClient {
-  getCounter: () => Promise<number>
-  updateCount: (counter: number) => Promise<void>
-}
-
-type GetCounterResponse = {
-  totalCount: number
-}
 
 export class ApiClient implements IApiClient {
   async getCounter() {
