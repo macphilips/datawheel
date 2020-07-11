@@ -27,13 +27,17 @@ export function Home() {
     updateCounter(updatedCounter);
     debouncedCallApi();
   };
-  if (loading) return <Loader/>;
+  if (loading) return <Loader />;
   return (
     <div className="home-root center">
       <div>
-        <div><span>Total count: </span> {count}</div>
+        <div>
+          <span>Total count: </span> {count}
+        </div>
         <div className="btn-container">
-          <button onClick={onClick} className="btn">+1</button>
+          <button onClick={onClick} className="btn">
+            +1
+          </button>
         </div>
       </div>
     </div>

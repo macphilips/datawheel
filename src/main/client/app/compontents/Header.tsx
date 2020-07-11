@@ -8,10 +8,14 @@ export function Header() {
     <nav className="header-root">
       <ul>
         <li>
-          <NavLink exact to={'/'}>Home</NavLink>
+          <NavLink exact to={'/'}>
+            Home
+          </NavLink>
         </li>
         <li>
-          <NavLink exact to={'/report'}>Report</NavLink>
+          <NavLink exact to={'/report'}>
+            Report
+          </NavLink>
         </li>
       </ul>
     </nav>

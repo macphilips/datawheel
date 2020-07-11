@@ -12,16 +12,15 @@ const baseHref = document
   .getAttribute('href')
   .replace(/\/$/, '');
 
-
 export const App = () => {
   return (
     <Router basename={baseHref}>
       <div className="app-container">
-        <Header/>
+        <Header />
         <StoreProvider>
           <APIProvider>
             <div className="container-fluid view-container" id="app-view-container">
-              <AppRoutes/>
+              <AppRoutes />
             </div>
           </APIProvider>
         </StoreProvider>
