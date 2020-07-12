@@ -1,6 +1,8 @@
 package com.datawheel.demo.domain;
 
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
@@ -18,6 +20,8 @@ import java.util.List;
 @TypeDefs({
     @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 })
+@Data
+@NoArgsConstructor
 public class Counter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,35 +32,5 @@ public class Counter {
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-//    @Basic(fetch = FetchType.LAZY)
     private List<CounterHistory> counterHistory;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getCount() {
-        return count;
-    }
-
-    public void setCount(Long count) {
-        this.count = count;
-    }
-
-    public List<CounterHistory> getCounterHistory() {
-        return counterHistory;
-    }
-
-    public void setCounterHistory(List<CounterHistory> counterHistory) {
-        this.counterHistory = counterHistory;
-    }
-
-    @Override
-    public String toString() {
-        return "Counter{" + "id=" + id + ", count=" + count + ", counterHistory=" + counterHistory + '}';
-    }
 }

@@ -1,7 +1,12 @@
 package com.datawheel.demo.domain;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 
+@Data
+@NoArgsConstructor
 public class CounterHistory implements Serializable {
     private Long count;
     private Long timestamp;

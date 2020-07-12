@@ -3,6 +3,7 @@ package com.datawheel.demo.service;
 import com.datawheel.demo.domain.Counter;
 import com.datawheel.demo.repository.CounterRepository;
 import com.datawheel.demo.service.dto.CounterDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +12,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@Slf4j
 public class CounterService {
     private final CounterRepository counterRepository;
 
