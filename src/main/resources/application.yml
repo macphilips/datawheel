@@ -10,7 +10,7 @@ spring:
     active: #spring.profiles.active#
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5433/datawheel_db
+    url: jdbc:postgresql://localhost:5432/datawheel_db
     username: postgres
     password: password
     hikari:

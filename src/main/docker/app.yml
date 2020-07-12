@@ -16,3 +16,11 @@ services:
     extends:
       file: postgres.yml
       service: datawheel
+
+  db_test:
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: datawheel_test
+    extends:
+      file: postgres.yml
+      service: datawheel
