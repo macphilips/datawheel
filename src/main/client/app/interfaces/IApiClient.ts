@@ -1,8 +1,15 @@
 export interface IApiClient {
-  getCounter: () => Promise<number>;
-  updateCount: (counter: number) => Promise<void>;
+  getCounter: () => Promise<CounterDTO>;
+  updateCount: (counter: CounterDTO) => Promise<CounterDTO>;
 }
 
-export interface GetCounterResponse {
+export type CountLog = {
+  count: number;
+  timestamp: number;
+};
+
+export interface CounterDTO {
+  id: number;
   totalCount: number;
+  counterHistory: CountLog[];
 }

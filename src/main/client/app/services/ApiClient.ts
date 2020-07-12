@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { SERVER_API_URL, TIMEOUT } from 'app/config/constants';
-import { GetCounterResponse, IApiClient } from 'app/interfaces/IApiClient';
+import { CounterDTO, IApiClient } from 'app/interfaces/IApiClient';
 
 const axiosInstance = axios.create({
   baseURL: SERVER_API_URL,
@@ -11,16 +11,27 @@ const axiosInstance = axios.create({
 export class ApiClient implements IApiClient {
   async getCounter() {
     try {
-      const response = await axiosInstance.get<GetCounterResponse>('counter');
-      return response.data.totalCount;
+      const response = await axiosInstance.get<CounterDTO>('counter');
+      return response.data;
     } catch (e) {
-      console.log('error ' + e.status, e.message);
-      throw e;
+      const { message, response } = e;
+      const error = new APIError(message, 500);
+      if (response) {
+        error.message = response.data.detail;
+        error.status = response.data.status;
+      }
+      throw error;
     }
   }
 
-  async updateCount(counter: number) {
-    axiosInstance.put<void>('counter/increment', { totalCount: counter });
+  async updateCount(counterDTO): Promise<CounterDTO> {
+    return axiosInstance.put<CounterDTO>('counter', counterDTO).then(res => res.data);
+  }
+}
+
+export class APIError extends Error {
+  constructor(public message: string, public status: number) {
+    super(message);
   }
 }
 

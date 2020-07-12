@@ -25,11 +25,11 @@ public class CounterService {
     }
 
     public Counter updateOrCreateCounter(CounterDTO counterDTO) {
-        Counter counter = Optional.ofNullable(counterDTO.getId())
-            .flatMap(counterRepository::findById)
+        Counter counter = getCounter()
             .orElse(new Counter());
 
         counter.setCount(counterDTO.getTotalCount());
+        counter.setCounterHistory(counterDTO.getCounterHistory());
         return counterRepository.save(counter);
     }
 

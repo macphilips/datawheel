@@ -98,18 +98,14 @@ class CounterCrtlTest {
     }
 
     @Test
-    void updateCounterShouldThrowBadRequestError() throws Exception {
-
-        Counter counter = createCounter();
-        counter = counterRepository.saveAndFlush(counter);
+    void updateCounterShouldCreateCounterIfNotExist() throws Exception {
 
         restUserMockMvc.perform(put("/api/counter")
             .contentType(MediaType.APPLICATION_JSON)
-            .content("{ \"totalCount\": 6 }"))
-            .andExpect(status().isBadRequest())
-            .andExpect(jsonPath("$.detail").value("Use POST request to create entity"));
+            .content("{ \"totalCount\": 56 }"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$.totalCount").value(56));
 
-
-        assertThat(counterRepository.getOne(counter.getId()).getCount()).isEqualTo(counter.getCount());
     }
 }

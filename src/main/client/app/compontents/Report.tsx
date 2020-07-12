@@ -2,7 +2,7 @@ import React from 'react';
 import { useStore } from 'app/hooks/customHooks';
 
 export function Report() {
-  const { history, totalCounter } = useStore();
+  const { history, totalCount } = useStore();
   let prevTimestamp = (history[0] || { timestamp: new Date().getTime() }).timestamp;
   const report = history.reduce(
     (prev, curr, index) => {
@@ -12,9 +12,9 @@ export function Report() {
       const averageTime = (prev.averageTime * index + currTimeInMilliSec) / (index + 1);
       prevTimestamp = curr.timestamp;
 
-      return { averageClick, totalCounter, averageTime: parseFloat(averageTime.toFixed(2)) };
+      return { averageClick, totalCount, averageTime: parseFloat(averageTime.toFixed(2)) };
     },
-    { averageTime: 0, averageClick: 0, totalCounter }
+    { averageTime: 0, averageClick: 0, totalCount: totalCount }
   );
   console.log(report);
   return (
@@ -23,11 +23,11 @@ export function Report() {
         Report
         <div>
           <span>Total Click: </span>
-          {report.totalCounter}
+          {report.totalCount}
         </div>
         <div>
           <span>Total Click: </span>
-          {report.totalCounter}
+          {report.totalCount}
         </div>
         <div>
           <span>Total Average Click Time (in seconds): </span>

@@ -85,6 +85,7 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedOrigin("*");
         config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
         config.setMaxAge(1800L);
         source.registerCorsConfiguration("/api/**", config);
         return new CorsFilter(source);

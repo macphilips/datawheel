@@ -1,21 +1,32 @@
 import React, { createContext, ReactNode, useState } from 'react';
-import { ClickHistory, IStore } from 'app/interfaces/IStore';
+import { IStore } from 'app/interfaces/IStore';
+import { CounterDTO } from 'app/interfaces/IApiClient';
 
 export const StoreContext = createContext<IStore | null>(null);
 
 function StoreProvider({ children }: { children: ReactNode }) {
-  const [history, setHistory] = useState<ClickHistory[]>([]);
-  const [counter, setCounter] = useState(0);
-  const updateCounter = counter => {
+  const [counter, setCount] = useState<null | CounterDTO>({ counterHistory: [], totalCount: null, id: null });
+  const updateCount = (count: number) => {
+    const { counterHistory } = counter;
     const newItem = {
-      counter,
+      count,
       timestamp: new Date().getTime()
     };
-    setCounter(counter);
-    setHistory([...history, newItem]);
+    setCount({ ...counter, totalCount: count, counterHistory: [...counterHistory, newItem] });
   };
 
-  const value = { history, updateCounter, totalCounter: counter };
+  const setCounter = (counter: CounterDTO) => {
+    setCount(counter);
+  };
+  const { counterHistory, totalCount, id: counterId } = counter;
+  const value: IStore = {
+    updateCount,
+    setCounter,
+    history: counterHistory,
+    totalCount,
+    counterId
+  };
+
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
 }
 

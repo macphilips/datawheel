@@ -16,15 +16,27 @@ repositories {
 }
 
 dependencies {
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+    compile 'com.vladmihalcea:hibernate-types-52:2.3.4'
     compile "org.hibernate.validator:hibernate-validator"
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
     implementation "org.apache.commons:commons-lang3"
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
     runtimeOnly 'org.postgresql:postgresql'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.12'
+    testImplementation "com.h2database:h2"
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
-    testImplementation "com.h2database:h2"
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
 }
 
 test {

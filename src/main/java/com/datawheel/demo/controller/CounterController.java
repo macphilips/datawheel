@@ -28,7 +28,6 @@ public class CounterController {
 
     @PutMapping
     public CounterDTO updateCounter(@RequestBody CounterDTO counterDTO) {
-        if (counterDTO.getId() == null) throw new BadRequestException("Use POST request to create entity");
         return new CounterDTO(counterService.updateOrCreateCounter(counterDTO));
     }
 

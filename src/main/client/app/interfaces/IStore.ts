@@ -1,10 +1,9 @@
-export type ClickHistory = {
-  counter: number;
-  timestamp: number;
-};
+import { CounterDTO, CountLog } from 'app/interfaces/IApiClient';
 
 export type IStore = {
-  updateCounter: (counter: number) => void;
-  history: ClickHistory[];
-  totalCounter: number;
+  setCounter: (counter: CounterDTO) => void;
+  updateCount: (counter: number) => void;
+  history: CountLog[];
+  counterId?: number;
+  totalCount: number | null;
 };
