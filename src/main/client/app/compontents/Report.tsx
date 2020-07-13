@@ -8,17 +8,17 @@ export function Report() {
     (prev, curr, index) => {
       const averageClick = 0;
 
-      const currTimeInMilliSec = (curr.timestamp - prevTimestamp) / 1000;
-      const averageTime = (prev.averageTime * index + currTimeInMilliSec) / (index + 1);
+      const currTimeInSec = (curr.timestamp - prevTimestamp) / 1000;
+      const averageTime = (prev.averageTimeBetweenClicks * index + currTimeInSec) / (index + 1);
       prevTimestamp = curr.timestamp;
 
-      return { averageClick, totalCount, averageTime: parseFloat(averageTime.toFixed(2)) };
+      return { averageClick, totalCount, averageTimeBetweenClicks: parseFloat(averageTime.toFixed(2)) };
     },
-    { averageTime: 0, averageClick: 0, totalCount: totalCount }
+    { averageTimeBetweenClicks: 0, averageClick: 0, totalCount: totalCount }
   );
   console.log(report);
   return (
-    <div className="center">
+    <div className="view-container center">
       <div>
         Report
         <div>
@@ -31,7 +31,7 @@ export function Report() {
         </div>
         <div>
           <span>Total Average Click Time (in seconds): </span>
-          {report.averageTime}
+          {report.averageTimeBetweenClicks}
         </div>
       </div>
     </div>

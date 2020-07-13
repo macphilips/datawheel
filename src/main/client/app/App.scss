@@ -5,6 +5,7 @@ html body {
 * {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+
   &:after,
   &::before {
     -moz-box-sizing: border-box;
@@ -12,11 +13,16 @@ html body {
   }
 }
 
-.center {
-  display: flex;
+.view-container {
   width: 100%;
   height: calc(100vh - 50px);
+}
 
+.center {
+  display: flex;
   align-items: center;
   justify-content: center;
+  .col {
+    flex-direction: column;
+  }
 }

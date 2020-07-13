@@ -3,6 +3,7 @@ import useDidMount from '@rooks/use-did-mount';
 import { useDebounce } from 'app/hooks/useDebounce';
 import { useApi, useStore } from 'app/hooks/customHooks';
 import { Loader } from 'app/compontents/Loader';
+import { ClickChart } from 'app/compontents/ClickChart';
 
 import './Home.scss';
 
@@ -33,24 +34,42 @@ export function Home() {
     debouncedCallApi();
   };
 
-  console.log('render ', totalCount);
-
   if (loading) return <Loader />;
 
-  if (error !== null) return <div className="center">{error}</div>;
+  if (error !== null) return <div className="home-root view-container center">{error}</div>;
 
+  const historyTimeStamp = history.map(_ => _.timestamp);
   return (
-    <div className="home-root center">
+    <div className="home-root view-container center">
       <div>
-        <div>
-          <span>Total count: </span> {totalCount || 0}
+        <div className="center col">
+          <div>
+            <span>Total Clicks: </span> {totalCount || 0}
+          </div>
+          <div className="btn-container">
+            <button onClick={onClick} className="btn">
+              +1
+            </button>
+          </div>
         </div>
-        <div className="btn-container">
-          <button onClick={onClick} className="btn">
-            +1
-          </button>
-        </div>
+        <ClickChart clicksPerSec={getClicksPerSec(historyTimeStamp)} />
       </div>
     </div>
   );
+}
+
+export function getClicksPerSec(timestamps: number[]): number[] {
+  const clicksPerSec = [];
+  let start = timestamps[0];
+  let counter = 0;
+  timestamps.forEach((timestamp, index) => {
+    const sec = (timestamp - start) / 1000;
+    if (sec > 1) {
+      clicksPerSec.push(counter);
+      start = timestamp;
+      counter = 0;
+    }
+    counter++;
+  });
+  return clicksPerSec;
 }
