@@ -7,7 +7,7 @@ ifeq ($(filter $(ENV), dev prod),)
 $(error Invalid environment variable: $(env))
 endif
 
-.PHONY: build stop
+.PHONY: build stop clean
 
 APP_COMPOSE_FILE := "src/main/docker/app.yml"
 
@@ -17,8 +17,10 @@ start-test-db:
 run-test: start-test-db
 	@(./gradlew test)
 
-stop:
+clean:
 	@(docker-compose -f $(APP_COMPOSE_FILE) down --remove-orphan)
+
+stop: clean
 
 build:
 	$(info Make: Building $(ENV) environment images.)
@@ -27,8 +29,8 @@ build:
 run-start: build
 	@(docker-compose -f $(APP_COMPOSE_FILE) up datawheel-app)
 
-test:
-	bash -c "trap 'docker-compose -f $(APP_COMPOSE_FILE) down --remove-orphan' EXIT; $(MAKE) run-test"
+test: clean
+	bash -c "trap 'docker-compose -f $(APP_COMPOSE_FILE) down' EXIT; $(MAKE) run-test"
 
-start:
-	bash -c "trap 'docker-compose -f $(APP_COMPOSE_FILE) down --remove-orphan' EXIT; $(MAKE) run-start"
+start: clean
+	bash -c "trap 'docker-compose -f $(APP_COMPOSE_FILE) down' EXIT; $(MAKE) run-start"
