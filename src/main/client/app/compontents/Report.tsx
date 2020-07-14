@@ -1,20 +1,12 @@
 import React from 'react';
 import { useStore } from 'app/hooks/customHooks';
+import { getClicksPerSec } from 'app/compontents/Home';
 
 export function Report() {
   const { history, totalCount } = useStore();
-  let prevTimestamp = (history[0] || { timestamp: new Date().getTime() }).timestamp;
-  const report = history.reduce(
-    (prev, curr, index) => {
-      const averageClick = 0;
-
-      const currTimeInSec = (curr.timestamp - prevTimestamp) / 1000;
-      const averageTime = (prev.averageTimeBetweenClicks * index + currTimeInSec) / (index + 1);
-      prevTimestamp = curr.timestamp;
-
-      return { averageClick, totalCount, averageTimeBetweenClicks: parseFloat(averageTime.toFixed(2)) };
-    },
-    { averageTimeBetweenClicks: 0, averageClick: 0, totalCount: totalCount }
+  const report = getReport(
+    history.map(_ => _.timestamp),
+    totalCount
   );
   console.log(report);
   return (
@@ -26,8 +18,8 @@ export function Report() {
           {report.totalCount}
         </div>
         <div>
-          <span>Total Click: </span>
-          {report.totalCount}
+          <span>Average Clicks: </span>
+          {report.averageClick}
         </div>
         <div>
           <span>Total Average Click Time (in seconds): </span>
@@ -36,4 +28,22 @@ export function Report() {
       </div>
     </div>
   );
+}
+
+function getReport(clickHistoryTimestamp: number[], totalCount: number) {
+  const averageClick = getClicksPerSec(clickHistoryTimestamp).reduce((average, curr, index) => {
+    const result = (average * index + curr) / (index + 1);
+    return parseFloat(result.toFixed(2));
+  }, 0);
+
+  let prevTimestamp = clickHistoryTimestamp[0] || new Date().getTime();
+  const averageTimeBetweenClicks = clickHistoryTimestamp.reduce((averageTimeBetweenClicks, currTimestamp, index) => {
+    const currTimeInSec = (currTimestamp - prevTimestamp) / 1000;
+    const averageTime = (averageTimeBetweenClicks * index + currTimeInSec) / (index + 1);
+    prevTimestamp = currTimestamp;
+
+    return parseFloat(averageTime.toFixed(2));
+  }, 0);
+
+  return { averageTimeBetweenClicks, averageClick, totalCount: totalCount };
 }
