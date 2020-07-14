@@ -1,13 +1,11 @@
 import React from 'react';
 import { useStore } from 'app/hooks/customHooks';
 import { getClicksPerSec } from 'app/compontents/Home';
+import { IStore } from 'app/interfaces/IStore';
 
 export function Report() {
-  const { history, totalCount } = useStore();
-  const report = getReport(
-    history.map(_ => _.timestamp),
-    totalCount
-  );
+  const store = useStore();
+  const report = getReport(store);
   console.log(report);
   return (
     <div className="view-container center">
@@ -15,7 +13,7 @@ export function Report() {
         Report
         <div>
           <span>Total Click: </span>
-          {report.totalCount}
+          {report.totalClicks}
         </div>
         <div>
           <span>Average Clicks: </span>
@@ -30,14 +28,15 @@ export function Report() {
   );
 }
 
-function getReport(clickHistoryTimestamp: number[], totalCount: number) {
-  const averageClick = getClicksPerSec(clickHistoryTimestamp).reduce((average, curr, index) => {
+function getReport(store: IStore) {
+  const { clickHistory, totalClicks } = store;
+  const averageClick = getClicksPerSec(clickHistory).reduce((average, curr, index) => {
     const result = (average * index + curr) / (index + 1);
     return parseFloat(result.toFixed(2));
   }, 0);
 
-  let prevTimestamp = clickHistoryTimestamp[0] || new Date().getTime();
-  const averageTimeBetweenClicks = clickHistoryTimestamp.reduce((averageTimeBetweenClicks, currTimestamp, index) => {
+  let prevTimestamp = clickHistory[0] || new Date().getTime();
+  const averageTimeBetweenClicks = clickHistory.reduce((averageTimeBetweenClicks, currTimestamp, index) => {
     const currTimeInSec = (currTimestamp - prevTimestamp) / 1000;
     const averageTime = (averageTimeBetweenClicks * index + currTimeInSec) / (index + 1);
     prevTimestamp = currTimestamp;
@@ -45,5 +44,5 @@ function getReport(clickHistoryTimestamp: number[], totalCount: number) {
     return parseFloat(averageTime.toFixed(2));
   }, 0);
 
-  return { averageTimeBetweenClicks, averageClick, totalCount: totalCount };
+  return { averageTimeBetweenClicks, averageClick, totalClicks };
 }

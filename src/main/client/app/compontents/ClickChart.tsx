@@ -6,7 +6,7 @@ type Props = {
 };
 
 export function ClickChart(props: Props) {
-  const chartOption = getOptions()
+  const chartOption = getOptions();
   const series = useMemo(() => {
     return [
       {
@@ -41,7 +41,7 @@ const getOptions = () => {
       tickAmount: 1
     },
     yaxis: {
-      label: "Clicks",
+      label: 'Clicks',
       type: 'numeric',
       min: 0,
       tickAmount: 2

@@ -30,8 +30,8 @@ public class CounterService {
         Counter counter = getCounter()
             .orElse(new Counter());
 
-        counter.setCount(counterDTO.getTotalCount());
-        counter.setCounterHistory(counterDTO.getCounterHistory());
+        counter.setTotalClicks(counterDTO.getTotalClicks());
+        counter.setClickTimestampHistory(counterDTO.getClickTimestampHistory());
         return counterRepository.save(counter);
     }
 

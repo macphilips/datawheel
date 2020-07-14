@@ -5,26 +5,26 @@ import { CounterDTO } from 'app/interfaces/IApiClient';
 export const StoreContext = createContext<IStore | null>(null);
 
 function StoreProvider({ children }: { children: ReactNode }) {
-  const [counter, setCount] = useState<null | CounterDTO>({ counterHistory: [], totalCount: null, id: null });
+  const [counter, setCount] = useState<null | CounterDTO>({ clickTimestampHistory: [], totalClicks: null, id: null });
   const updateCount = (count: number) => {
-    const { counterHistory } = counter;
-    const newItem = {
-      count,
-      timestamp: new Date().getTime()
-    };
-    setCount({ ...counter, totalCount: count, counterHistory: [...counterHistory, newItem] });
+    const { clickTimestampHistory } = counter;
+    setCount({
+      ...counter,
+      totalClicks: count,
+      clickTimestampHistory: [...clickTimestampHistory, new Date().getTime()]
+    });
   };
 
   const setCounter = (counter: CounterDTO) => {
     setCount(counter);
   };
-  const { counterHistory, totalCount, id: counterId } = counter;
+  const { clickTimestampHistory, totalClicks, id: counterId } = counter;
   const value: IStore = {
-    updateCount,
+    updateClickCount: updateCount,
     setCounter,
-    history: counterHistory,
-    totalCount,
-    counterId
+    totalClicks,
+    counterId,
+    clickHistory: clickTimestampHistory,
   };
 
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;

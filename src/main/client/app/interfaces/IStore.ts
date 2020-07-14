@@ -1,9 +1,9 @@
-import { CounterDTO, CountLog } from 'app/interfaces/IApiClient';
+import { CounterDTO } from 'app/interfaces/IApiClient';
 
 export type IStore = {
   setCounter: (counter: CounterDTO) => void;
-  updateCount: (counter: number) => void;
-  history: CountLog[];
+  updateClickCount: (counter: number) => void;
+  clickHistory: number[];
   counterId?: number;
-  totalCount: number | null;
+  totalClicks: number | null;
 };

@@ -8,7 +8,7 @@ import { ClickChart } from 'app/compontents/ClickChart';
 import './Home.scss';
 
 export function Home() {
-  const { updateCount, history, totalCount, counterId, setCounter } = useStore();
+  const { updateClickCount, clickHistory, totalClicks, counterId, setCounter } = useStore();
   const [loading, setLoading] = useState(true);
   const { updateCount: updateCountApi, getCounter } = useApi();
 
@@ -25,12 +25,12 @@ export function Home() {
     setLoading(false);
   });
 
-  const debouncedCallApi = useDebounce(() => updateCountApi({ totalCount, counterHistory: history, id: counterId }));
+  const debouncedCallApi = useDebounce(() => updateCountApi({ totalClicks, clickTimestampHistory: clickHistory, id: counterId }));
 
   const onClick = () => {
-    const updatedCounter = totalCount + 1;
+    const updatedCounter = totalClicks + 1;
     // setCount(updatedCounter);
-    updateCount(updatedCounter);
+    updateClickCount(updatedCounter);
     debouncedCallApi();
   };
 
@@ -38,13 +38,12 @@ export function Home() {
 
   if (error !== null) return <div className="home-root view-container center">{error}</div>;
 
-  const historyTimeStamp = history.map(_ => _.timestamp);
   return (
     <div className="home-root view-container center">
       <div>
         <div className="center col">
           <div>
-            <span>Total Clicks: </span> {totalCount || 0}
+            <span>Total Clicks: </span> {totalClicks || 0}
           </div>
           <div className="btn-container">
             <button onClick={onClick} className="btn">
@@ -52,7 +51,7 @@ export function Home() {
             </button>
           </div>
         </div>
-        <ClickChart clicksPerSec={getClicksPerSec(historyTimeStamp)} />
+        <ClickChart clicksPerSec={getClicksPerSec(clickHistory)} />
       </div>
     </div>
   );

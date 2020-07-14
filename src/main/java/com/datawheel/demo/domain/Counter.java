@@ -27,10 +27,11 @@ public class Counter {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "count")
-    private Long count;
+    @Column(name = "total_clicks")
+    private Long totalClicks;
 
+    // Store timestamp of each clicks
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-    private List<CounterHistory> counterHistory;
+    private List<Long> clickTimestampHistory;
 }

@@ -3,13 +3,8 @@ export interface IApiClient {
   updateCount: (counter: CounterDTO) => Promise<CounterDTO>;
 }
 
-export type CountLog = {
-  count: number;
-  timestamp: number;
-};
-
 export interface CounterDTO {
   id: number;
-  totalCount: number;
-  counterHistory: CountLog[];
+  totalClicks: number;
+  clickTimestampHistory: number[];
 }
