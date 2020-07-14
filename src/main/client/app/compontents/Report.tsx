@@ -45,7 +45,6 @@ function getReport(store: IStore) {
   let prevTimestamp = history.shift();
   const averageTimeBetweenClicks = history.reduce((averageTimeBetweenClicks, currTimestamp, index) => {
     const currTimeInSec = (currTimestamp - prevTimestamp) / 1000;
-    console.log(currTimestamp, prevTimestamp, currTimeInSec);
     const averageTime = (averageTimeBetweenClicks * index + currTimeInSec) / (index + 1);
     prevTimestamp = currTimestamp;
 

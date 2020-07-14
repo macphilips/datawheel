@@ -32,6 +32,11 @@ $size: 8px;
       color: #4caf50;
     }
   }
+  .input-grp {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
   input {
     padding: $size;

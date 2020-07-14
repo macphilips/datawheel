@@ -22,7 +22,7 @@ export function getClicksPerSec(timestamps: number[]): number[] {
 export const totalTimeInSec = (timestamps: number[]) => {
   if (timestamps.length >= 2) {
     const [start, end] = startAndEndTime(timestamps);
-    return (end - start) / 1000;
+    return Math.round((end - start) / 1000);
   } else {
     return 0;
   }
