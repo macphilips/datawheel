@@ -2,6 +2,9 @@ import React, { createContext, ReactNode, useState } from 'react';
 import { IStore } from 'app/interfaces/IStore';
 import { CounterDTO } from 'app/interfaces/IApiClient';
 
+/**
+ * StoreContext is a naive implementation of a state management system which stores the state of the application globally.
+ */
 export const StoreContext = createContext<IStore | null>(null);
 
 function StoreProvider({ children }: { children: ReactNode }) {

@@ -1,3 +1,5 @@
+// calculate total clicks per seconds and returns array of clicks for each seconds
+// between the first recorded timestamp and last recorded timestamp (i.e the length of the array === totalTimeInSec)
 export function getClicksPerSec(timestamps: number[]): number[] {
   let clicksPerSec = [];
   let start = timestamps[0];
@@ -16,6 +18,7 @@ export function getClicksPerSec(timestamps: number[]): number[] {
   return clicksPerSec;
 }
 
+// calculates total time between the first recorded timestamp and last recorded timestamp
 export const totalTimeInSec = (timestamps: number[]) => {
   if (timestamps.length >= 2) {
     const [start, end] = startAndEndTime(timestamps);

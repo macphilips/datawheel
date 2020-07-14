@@ -30,14 +30,22 @@ export function Report() {
 
 function getReport(store: IStore) {
   const { clickHistory, totalClicks } = store;
+
+  // calculates average clicks by find the average of clicks per sec
+  // between the first and last recorded click window
   const averageClick = getClicksPerSec(clickHistory).reduce((average, curr, index) => {
     const result = (average * index + curr) / (index + 1);
     return parseFloat(result.toFixed(2));
   }, 0);
 
-  let prevTimestamp = clickHistory[0] || new Date().getTime();
-  const averageTimeBetweenClicks = clickHistory.reduce((averageTimeBetweenClicks, currTimestamp, index) => {
+  // calculates the average time between click
+  // For example given am array of timestamps [t1,t2,t3, t4]
+  // average = ((t2-t1) + (t3-t2) + (t4-t3)) / 3
+  const history = [...clickHistory];
+  let prevTimestamp = history.shift();
+  const averageTimeBetweenClicks = history.reduce((averageTimeBetweenClicks, currTimestamp, index) => {
     const currTimeInSec = (currTimestamp - prevTimestamp) / 1000;
+    console.log(currTimestamp, prevTimestamp, currTimeInSec);
     const averageTime = (averageTimeBetweenClicks * index + currTimeInSec) / (index + 1);
     prevTimestamp = currTimestamp;
 

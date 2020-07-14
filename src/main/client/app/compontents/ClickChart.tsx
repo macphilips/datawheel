@@ -13,6 +13,9 @@ export function ClickChart(props: Props) {
   const totalTime = totalTimeInSec(props.clickHistory);
   const [selected, onSelect] = useState<TimeFrame>(TimeFrame.ALL);
   const [startWindow, setStartWindow] = useState<number>(0);
+
+  // generate data point for chart. These array represents the Y-Axis which is the total number of clicks per second
+  // X-Axis represents the time in seconds between the first & last recorded click.
   const clicksPerSec = useMemo(() => getClicksPerSec(props.clickHistory), [props.clickHistory]);
 
   const calcSeries = getCalculatedSeries(clicksPerSec, startWindow, selected);

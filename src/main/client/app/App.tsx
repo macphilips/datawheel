@@ -17,9 +17,11 @@ export const App = () => {
     <Router basename={baseHref}>
       <div className="app-container">
         <Header />
+        {/* register the StoreContext to make application states available to all it children */}
         <StoreProvider>
+          {/* register the APIContext to make api client available to all it children */}
           <APIProvider>
-            <div className="container-fluid view-container" id="app-view-container">
+            <div id="app-view-container">
               <AppRoutes />
             </div>
           </APIProvider>

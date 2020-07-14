@@ -14,10 +14,13 @@ export function Home() {
 
   const [error, setError] = useState<string | null>(null);
 
+  // fetches the counter from the backend when the component mounts
+  // and updates the store.
   useDidMount(async () => {
     try {
       setLoading(true);
       const result = await getCounter();
+      // insert result into our store
       setCounter(result);
     } catch (e) {
       if (e.status !== 404) setError(e.message);
@@ -25,6 +28,9 @@ export function Home() {
     setLoading(false);
   });
 
+  // debounce api call to update the counter
+  // this reduces the number of api request
+  // when we quick hitting the +1 button.
   const debouncedCallApi = useDebounce(() =>
     updateCountApi({
       totalClicks,
@@ -35,8 +41,8 @@ export function Home() {
 
   const onClick = () => {
     const updatedCounter = totalClicks + 1;
-    updateClickCount(updatedCounter);
-    debouncedCallApi();
+    updateClickCount(updatedCounter); // update the store
+    debouncedCallApi(); // make api request to update the counter
   };
 
   if (loading) return <Loader />;
