@@ -1,12 +1,12 @@
 import React from 'react';
 import { useStore } from 'app/hooks/customHooks';
-import { getClicksPerSec } from 'app/compontents/Home';
 import { IStore } from 'app/interfaces/IStore';
+import { getClicksPerSec } from 'app/utils';
 
 export function Report() {
   const store = useStore();
   const report = getReport(store);
-  console.log(report);
+
   return (
     <div className="view-container center">
       <div>

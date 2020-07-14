@@ -25,11 +25,16 @@ export function Home() {
     setLoading(false);
   });
 
-  const debouncedCallApi = useDebounce(() => updateCountApi({ totalClicks, clickTimestampHistory: clickHistory, id: counterId }));
+  const debouncedCallApi = useDebounce(() =>
+    updateCountApi({
+      totalClicks,
+      clickTimestampHistory: clickHistory,
+      id: counterId
+    })
+  );
 
   const onClick = () => {
     const updatedCounter = totalClicks + 1;
-    // setCount(updatedCounter);
     updateClickCount(updatedCounter);
     debouncedCallApi();
   };
@@ -51,24 +56,8 @@ export function Home() {
             </button>
           </div>
         </div>
-        <ClickChart clicksPerSec={getClicksPerSec(clickHistory)} />
+        <ClickChart clickHistory={clickHistory} />
       </div>
     </div>
   );
-}
-
-export function getClicksPerSec(timestamps: number[]): number[] {
-  const clicksPerSec = [];
-  let start = timestamps[0];
-  let counter = 0;
-  timestamps.forEach((timestamp, index) => {
-    const sec = (timestamp - start) / 1000;
-    if (sec > 1) {
-      clicksPerSec.push(counter);
-      start = timestamp;
-      counter = 0;
-    }
-    counter++;
-  });
-  return clicksPerSec;
 }

@@ -24,7 +24,7 @@ function StoreProvider({ children }: { children: ReactNode }) {
     setCounter,
     totalClicks,
     counterId,
-    clickHistory: clickTimestampHistory,
+    clickHistory: clickTimestampHistory
   };
 
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;

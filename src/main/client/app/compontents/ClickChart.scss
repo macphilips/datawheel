@@ -1,0 +1,45 @@
+$size: 8px;
+.toolbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+
+  button {
+    padding: $size;
+    margin-right: $size;
+    background-color: #4caf50; /* Green */
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    outline: none;
+
+    &:hover {
+      background-color: white;
+      border: 1px solid #4caf50;
+      color: #4caf50;
+    }
+
+    &.active {
+      background-color: white;
+      border: none;
+      color: #4caf50;
+    }
+  }
+
+  input {
+    padding: $size;
+    margin: $size;
+    width: 75px;
+
+    &[type='number'] {
+      text-align: right;
+    }
+  }
+}
