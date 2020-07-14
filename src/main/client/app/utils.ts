@@ -2,12 +2,12 @@ export function getClicksPerSec(timestamps: number[]): number[] {
   let clicksPerSec = [];
   let start = timestamps[0];
   let counter = 0;
-  timestamps.forEach((timestamp) => {
+  timestamps.forEach(timestamp => {
     const sec = (timestamp - start) / 1000;
     if (sec > 1) {
-      clicksPerSec.push(counter);
       const round = Math.round(sec - 1);
       clicksPerSec = clicksPerSec.concat(zeroArray(round));
+      clicksPerSec.push(counter);
       start = timestamp;
       counter = 0;
     }
