@@ -6,8 +6,12 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Data
-@NoArgsConstructor
+/**
+ * Data Transfer Object for the Counter Entity
+ */
+
+@Data // This annotation helps us generate boilerplate get/set/hash/equal/toString methods
+@NoArgsConstructor // Generates a constructor with no arguments
 public class CounterDTO {
     private Long id;
     private Long totalClicks;

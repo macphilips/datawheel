@@ -26,6 +26,11 @@ public class CounterService {
         return Optional.ofNullable(counter);
     }
 
+    /**
+     *
+     * @param counterDTO:
+     * @return Counter
+     */
     public Counter updateOrCreateCounter(CounterDTO counterDTO) {
         Counter counter = getCounter()
             .orElse(new Counter());

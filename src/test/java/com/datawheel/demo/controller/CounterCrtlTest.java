@@ -32,7 +32,7 @@ class CounterCrtlTest {
 
     public Counter createCounter() {
         Counter counter = new Counter();
-        counter.setCount(12L);
+        counter.setTotalClicks(12L);
         return (counter);
     }
 
@@ -58,7 +58,7 @@ class CounterCrtlTest {
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.totalCount").value(counter.getCount()));
+            .andExpect(jsonPath("$.totalClicks").value(counter.getTotalClicks()));
 
     }
 
@@ -67,17 +67,17 @@ class CounterCrtlTest {
         // should create a new counter
         restUserMockMvc.perform(post("/api/counter")
             .contentType(MediaType.APPLICATION_JSON)
-            .content("{ \"totalCount\": 6 }"))
+            .content("{ \"totalClicks\": 6 }"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.totalCount").value(6));
+            .andExpect(jsonPath("$.totalClicks").value(6));
     }
 
     @Test
     void createCounterShouldThrowBadRequestError() throws Exception {
         restUserMockMvc.perform(post("/api/counter")
             .contentType(MediaType.APPLICATION_JSON)
-            .content("{ \"totalCount\": 56,  \"id\": 8 }"))
+            .content("{ \"totalClicks\": 56,  \"id\": 8 }"))
             .andExpect(status().isBadRequest())
             .andExpect(jsonPath("$.detail").value("Use PUT request to update entity"));
     }
@@ -89,12 +89,12 @@ class CounterCrtlTest {
 
         restUserMockMvc.perform(put("/api/counter")
             .contentType(MediaType.APPLICATION_JSON)
-            .content("{ \"totalCount\": 56, \"id\": " + counter.getId() + " }"))
+            .content("{ \"totalClicks\": 56, \"id\": " + counter.getId() + " }"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.totalCount").value(56));
+            .andExpect(jsonPath("$.totalClicks").value(56));
 
-        assertThat(counterRepository.getOne(counter.getId()).getCount()).isEqualTo(56L);
+        assertThat(counterRepository.getOne(counter.getId()).getTotalClicks()).isEqualTo(56L);
     }
 
     @Test
@@ -102,10 +102,10 @@ class CounterCrtlTest {
 
         restUserMockMvc.perform(put("/api/counter")
             .contentType(MediaType.APPLICATION_JSON)
-            .content("{ \"totalCount\": 56 }"))
+            .content("{ \"totalClicks\": 56 }"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.totalCount").value(56));
+            .andExpect(jsonPath("$.totalClicks").value(56));
 
     }
 }

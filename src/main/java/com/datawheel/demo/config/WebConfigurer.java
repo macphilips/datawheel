@@ -1,7 +1,6 @@
 package com.datawheel.demo.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.server.WebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
@@ -25,9 +24,8 @@ import static java.net.URLDecoder.decode;
  * Configuration of web application with Servlet 3.0 APIs.
  */
 @Configuration
+@Slf4j
 public class WebConfigurer implements ServletContextInitializer, WebServerFactoryCustomizer<WebServerFactory> {
-
-    private final Logger log = LoggerFactory.getLogger(WebConfigurer.class);
 
     public WebConfigurer() {
     }
@@ -38,7 +36,8 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
     }
 
     /**
-     * Customize the Servlet engine: static assest
+     * Customize the Servlet engine: static asset.
+     * This method tells the server where to locate our react application
      */
     @Override
     public void customize(WebServerFactory server) {
@@ -78,6 +77,9 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
         return extractedPath.substring(0, extractionEndIndex);
     }
 
+    /**
+     * Creates CORS Filter bean.
+     */
     @Bean
     public CorsFilter corsFilter() {
         log.debug("Registering CORS filter");

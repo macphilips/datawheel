@@ -1,11 +1,11 @@
 package com.datawheel.demo;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.env.Environment;
-import org.apache.commons.lang3.StringUtils;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -23,7 +23,7 @@ public class DemoApplication {
     private static void logApplicationStartup(Environment env) {
         String protocol = "http";
         String serverPort = env.getProperty("server.port");
-        if (StringUtils.isBlank(serverPort)) serverPort = "8080";
+        if (StringUtils.isBlank(serverPort)) serverPort = "8080"; // default port
         String contextPath = env.getProperty("server.servlet.context-path");
         if (StringUtils.isBlank(contextPath)) {
             contextPath = "/";
